@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   int currrentStep = 0;
   String _estado = "";
   List<ViaCepModel> enderecos = [];
+  bool carregando = false;
 
   @override
   void dispose() {
@@ -52,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                   onStepTapped: (index) {
                     setState(() => currrentStep = index);
                   },
-                  onStepContinue: () {
+                  onStepContinue: () async {
                     if (currrentStep != 2) {
                       setState(() => currrentStep++);
                     }
@@ -61,7 +62,9 @@ class _HomePageState extends State<HomePage> {
                         _estado != "" &&
                         cidadeEC.text != "" &&
                         ruaEC.text != "") {
-                      carregandoDadosViaCep();
+                      setState(() => carregando = true);
+                      await carregandoDadosViaCep();
+                      setState(() => carregando = false);
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (_) => EnderecoPage(
@@ -119,6 +122,9 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
+              carregando
+                  ? const CircularProgressIndicator.adaptive()
+                  : const SizedBox.shrink(),
             ],
           ),
         ),
