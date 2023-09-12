@@ -1,3 +1,4 @@
+import 'package:cep/page/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MiaSoftware39 extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: Container(),
+      home: const HomePage(),
     );
   }
 }
