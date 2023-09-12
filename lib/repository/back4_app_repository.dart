@@ -4,6 +4,8 @@ import 'package:cep/model/via_cep_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../model/back4_app_model.dart';
+
 class Back4AppRepository {
   String endPoint = "https://parseapi.back4app.com/classes/endereco";
   Map<String, String> cabecalho = {
@@ -30,19 +32,8 @@ class Back4AppRepository {
   }
 
 //! ler
-  Future<List<ViaCepModel>> meusCepGravados() async {
-    final response = await http.get(Uri.parse(endPoint));
-    if (response.statusCode == 200) {
-      var jsonMeusEnderecos = jsonDecode(response.body);
-      return (jsonMeusEnderecos as List)
-          .map((e) => ViaCepModel.fromJson(e))
-          .toList();
-    } else {
-      return [];
-    }
-  }
 
-  //! consulta com condicao
+//! consulta com condicao
   Future<bool> jaExisteOEndereco(ViaCepModel endereco) async {
     String parametros = "where={\"cep\": \"${endereco.cep}\"}";
     final String urlWhere = "$endPoint?$parametros";

@@ -1,9 +1,14 @@
+import 'package:cep/model/back4_app_model.dart';
 import 'package:cep/model/via_cep_model.dart';
 import 'package:cep/page/endereco/endereco_page.dart';
 import 'package:cep/page/home/widgets/cabecalho_via_cep.dart';
+import 'package:cep/repository/back4_app_repository.dart';
 import 'package:cep/repository/via_cep_repository.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../Registo/list_endereco_cadastro.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ViaCepRepository viaCepRepository = ViaCepRepository();
+  Back4AppRepository back4appRepository = Back4AppRepository();
 
   final cidadeEC = TextEditingController();
   final ruaEC = TextEditingController();
@@ -128,6 +134,13 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => ListEnderecoCadastro()));
+        },
+        child: const FaIcon(FontAwesomeIcons.addressCard),
       ),
     );
   }
