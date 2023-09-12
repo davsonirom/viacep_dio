@@ -34,11 +34,18 @@ class EnderecoTile extends StatelessWidget {
       ),
       trailing: IconButton(
         onPressed: () async {
-          String enderecoToBack4app = viaCepModel.toJson();
-          debugPrint("string para back4App: $enderecoToBack4app");
-          Response status =
-              await back4appRepository.salvarEndereco(enderecoToBack4app);
-          debugPrint(status.statusCode.toString());
+          final back4app =
+              await back4appRepository.jaExisteOEndereco(viaCepModel);
+          if (back4app) {
+            debugPrint(
+                "verificado dados existente: CEP ja cadastrado no back4App.");
+          } else {
+            String enderecoToBack4app = viaCepModel.toJson();
+            debugPrint("string para back4App: $enderecoToBack4app");
+            Response status =
+                await back4appRepository.salvarEndereco(enderecoToBack4app);
+            debugPrint(status.statusCode.toString());
+          }
         },
         icon: const FaIcon(FontAwesomeIcons.solidFloppyDisk),
       ),
