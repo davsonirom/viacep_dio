@@ -20,15 +20,23 @@ class EnderecoPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('CEPs de $cidade'),
       ),
-      body: ListView.builder(
-        itemCount: enderecosEncontrados.length,
-        itemBuilder: (_, index) {
-          var resultado = enderecosEncontrados[index];
-          return EnderecoTile(
-            viaCepModel: resultado,
-          );
-        },
-      ),
+      body: enderecosEncontrados.length == 0
+          ? Center(
+              child: Text(
+              "ops! Não encontrei a rua informada, \ntente novamente.",
+              style: TextStyle(
+                color: Colors.red.shade500,
+              ),
+            ))
+          : ListView.builder(
+              itemCount: enderecosEncontrados.length,
+              itemBuilder: (_, index) {
+                var resultado = enderecosEncontrados[index];
+                return EnderecoTile(
+                  viaCepModel: resultado,
+                );
+              },
+            ),
     );
   }
 }

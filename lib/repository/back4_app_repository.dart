@@ -32,6 +32,20 @@ class Back4AppRepository {
   }
 
 //! ler
+  Future<List<Back4AppModel>> meusReggistroNoBack4app() async {
+    final response = await http.get(
+      Uri.parse(endPoint),
+      headers: cabecalho,
+    );
+    if (response.statusCode == 200) {
+      final resultado = json.decode(response.body);
+      final List<dynamic> lista = resultado["results"];
+      // debugPrint(lista.toString());
+      return (lista).map((e) => Back4AppModel.fromJson(jsonEncode(e))).toList();
+    } else {
+      return [];
+    }
+  }
 
 //! consulta com condicao
   Future<bool> jaExisteOEndereco(ViaCepModel endereco) async {

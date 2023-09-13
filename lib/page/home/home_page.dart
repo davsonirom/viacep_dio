@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   int currrentStep = 0;
   String _estado = "";
   List<ViaCepModel> enderecos = [];
+  List<Back4AppModel> registros = [];
   bool carregando = false;
 
   @override
@@ -42,6 +43,10 @@ class _HomePageState extends State<HomePage> {
       cidadeEC.text,
       ruaEC.text,
     );
+  }
+
+  carregandoDadosBack4pp() async {
+    registros = await back4appRepository.meusReggistroNoBack4app();
   }
 
   @override
@@ -136,9 +141,12 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => ListEnderecoCadastro()));
+        onPressed: () {
+          carregandoDadosBack4pp();
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (_) => ListEnderecoCadastro(
+                    registros: registros,
+                  )));
         },
         child: const FaIcon(FontAwesomeIcons.addressCard),
       ),
