@@ -143,12 +143,19 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          carregandoDadosBack4pp();
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => ListEnderecoCadastro(
-                    registros: registros,
-                  )));
+        onPressed: () async {
+          setState(() => carregando = true);
+          await carregandoDadosBack4pp();
+          setState(() {
+            carregando = false;
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => ListEnderecoCadastro(
+                  registros: registros,
+                ),
+              ),
+            );
+          });
         },
         child: const FaIcon(FontAwesomeIcons.addressCard),
       ),
