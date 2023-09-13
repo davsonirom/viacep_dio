@@ -75,15 +75,17 @@ class _HomePageState extends State<HomePage> {
                         ruaEC.text != "") {
                       setState(() => carregando = true);
                       await carregandoDadosViaCep();
-                      setState(() => carregando = false);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => EnderecoPage(
-                            enderecosEncontrados: enderecos,
-                            cidade: cidadeEC.text,
+                      setState(() {
+                        carregando = false;
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => EnderecoPage(
+                              enderecosEncontrados: enderecos,
+                              cidade: cidadeEC.text,
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      });
                     }
                   },
                   onStepCancel: () {

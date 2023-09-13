@@ -20,7 +20,7 @@ class EnderecoPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('CEPs de $cidade'),
       ),
-      body: enderecosEncontrados.length == 0
+      body: enderecosEncontrados.isEmpty
           ? Center(
               child: Text(
               "ops! Não encontrei a rua informada, \ntente novamente.",
